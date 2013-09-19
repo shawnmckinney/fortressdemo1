@@ -18,7 +18,9 @@ import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import us.jts.fortress.*;
+import us.jts.fortress.AccessMgr;
+import us.jts.fortress.GlobalErrIds;
+import us.jts.fortress.ReviewMgr;
 import us.jts.fortress.rbac.Permission;
 import us.jts.fortress.rbac.Session;
 import us.jts.fortress.rbac.User;
@@ -376,10 +378,6 @@ public abstract class MyBasePage extends WebPage
                         LOG.info( message );
                         ( ( RbacSession ) RbacSession.get() ).setSession( session );
                         getPermissions();
-/*
-                        linksLabel = "Authorized Links for " + inUser.getUserId();
-                        add( linksLbl );
-*/
                     }
                     catch ( us.jts.fortress.SecurityException se )
                     {

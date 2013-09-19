@@ -11,8 +11,10 @@ import org.apache.wicket.request.Response;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 
 /**
- * Application object for your web application. If you want to run this application without deploying, run the Start class.
- * 
+ * Fortressdemo1 Wicket home.
+ *
+ * @author Shawn McKinney
+ * @version $Rev$
  */
 public class WicketApplication extends WebApplication
 {    	
@@ -41,8 +43,5 @@ public class WicketApplication extends WebApplication
 		// add your configuration here
         getComponentInstantiationListeners().add(new SpringComponentInjector(this));
         getMarkupSettings().setStripWicketTags(true);
-        //mountPage("index.html", LaunchPage.class);
-        //mountPage("home.html", LaunchPage.class);
-        //mountPage("/", LaunchPage.class);
 	}
 }

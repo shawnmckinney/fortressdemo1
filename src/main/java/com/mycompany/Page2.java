@@ -13,6 +13,12 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 
 
+/**
+ * Example Page class for Fortressdemo1 Wicket sample project.  It contains security control functions to demonstrate ANSI RBAC security concepts.
+ *
+ * @author Shawn McKinney
+ * @version $Rev$
+ */
 public class Page2 extends MyBasePage
 {
     private static final Logger LOG = Logger.getLogger( Page2.class.getName() );
