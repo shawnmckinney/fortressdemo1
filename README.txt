@@ -75,6 +75,9 @@ http://localhost:8080/fortressdemo1
 user1/password
 user2/password
 user3/password
+
+Note: If you make changes and want to redeploy use this command:
+$ mvn tomcat:redeploy
 ___________________________________________________________________________________
 ###################################################################################
 # Section 2: Instructions for running automatic Selenium Tests
