@@ -1,8 +1,8 @@
 This is free and unencumbered software released into the public domain.
 ___________________________________________________________________________________
 ###################################################################################
-README for Wicket, Java EE, Spring and Fortress Security Sample
-Last updated: Sep 11, 2013
+README for Wicket, Java EE, Spring and Fortress RBAC Security Sample
+Last updated: Sep 19, 2013
 ___________________________________________________________________________________
 ###################################################################################
 # Prerequisites
@@ -70,15 +70,24 @@ ________________________________________________________________________________
 5. Run the build from the root package:
 $ mvn tomcat:deploy
 6. Go to this URL:
-http://localhost:8080/myfortressproject
+http://localhost:8080/fortressdemo1
 7. Use the credentials defined in demo-fortressproject-users.xml (from step installing Fortress step 3):
 user1/password
 user2/password
 user3/password
 ___________________________________________________________________________________
 ###################################################################################
-# Section 3: Sample Policy with Fortress
+# Section 2: Instructions for running automatic Selenium Tests
+###################################################################################
+1. Run Selenium Web driver test
+>mvn verify -DskipTests=false
+___________________________________________________________________________________
+###################################################################################
+# Section 3: Sample RBAC Policy with Fortress
 ###################################################################################
 user1 can view all pages but only buttons on Page1
+user1 default role activation is ROLE_TEST1
+user1 can activate role ROLE_TEST2 or ROLE_TEST3
+user1 cannot have all three roles activated simultaneously because of dynamic SoD constraint preventing it.
 user2 can only view Page2 and Page2 buttons
 user3 can only view Page3 and Page3 buttons
