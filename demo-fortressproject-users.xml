@@ -46,19 +46,23 @@
             </deluser>
 
             <adduser>
-                <user userId="user1" password="password" description="Wicket Fortress Project Demo User1" ou="WicketUsers" cn="test1" sn="user1"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0"/>
-                <user userId="user2" password="password" description="Wicket Fortress Project Demo User1" ou="WicketUsers" cn="test2" sn="user2"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0"/>
-                <user userId="user3" password="password" description="Wicket Fortress Project Demo User1" ou="WicketUsers" cn="test3" sn="user3"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0"/>
+                <user userId="user1" password="password" description="Wicket Fortress Project Demo User1" ou="WicketUsers" cn="test1" sn="user1"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0" userProps="fortressdemo1:ROLE_TEST1"/>
+                <user userId="user2" password="password" description="Wicket Fortress Project Demo User1" ou="WicketUsers" cn="test2" sn="user2"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0" userProps="fortressdemo1:ROLE_TEST2"/>
+                <user userId="user3" password="password" description="Wicket Fortress Project Demo User1" ou="WicketUsers" cn="test3" sn="user3"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0" userProps="fortressdemo1:ROLE_TEST3"/>
             </adduser>
 
             <deluserrole>
                 <userrole userId="user1" name="ROLE_TEST1"/>
+                <userrole userId="user1" name="ROLE_TEST2"/>
+                <userrole userId="user1" name="ROLE_TEST3"/>
                 <userrole userId="user2" name="ROLE_TEST2"/>
                 <userrole userId="user3" name="ROLE_TEST3"/>
             </deluserrole>
 
             <adduserrole>
                 <userrole userId="user1" name="ROLE_TEST1"  beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
+                <userrole userId="user1" name="ROLE_TEST2"  beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
+                <userrole userId="user1" name="ROLE_TEST3"  beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
                 <userrole userId="user2" name="ROLE_TEST2"  beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
                 <userrole userId="user3" name="ROLE_TEST3"  beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
             </adduserrole>
@@ -76,64 +80,82 @@
             </addrole>
 
             <delpermobj>
-                <permobj objectName="Page1"/>
-                <permobj objectName="Page2"/>
-                <permobj objectName="Page3"/>
+                <permobj objectName="com.mycompany.Page1"/>
+                <permobj objectName="com.mycompany.Page2"/>
+                <permobj objectName="com.mycompany.Page3"/>
+                <permobj objectName="us.jts.fortress.rbac.AccessMgrImpl"/>
             </delpermobj>
 
             <addpermobj>
-                <permobj objectName="Page1" description="Wicket Test Page 1" ou="WicketPerms" type="Page"/>
-                <permobj objectName="Page2" description="Wicket Test Page 2" ou="WicketPerms" type="Page"/>
-                <permobj objectName="Page3" description="Wicket Test Page 3" ou="WicketPerms" type="Page"/>
+                <permobj objectName="com.mycompany.Page1" description="Wicket Test Page 1" ou="WicketPerms" type="Page"/>
+                <permobj objectName="com.mycompany.Page2" description="Wicket Test Page 2" ou="WicketPerms" type="Page"/>
+                <permobj objectName="com.mycompany.Page3" description="Wicket Test Page 3" ou="WicketPerms" type="Page"/>
+                <permobj objectName="us.jts.fortress.rbac.AccessMgrImpl" description="Used to perform role activation functions" ou="WicketPerms" type="Page"/>
             </addpermobj>
 
             <delpermop>
-                <permop objectName="Page1" opName="Button1"/>
-                <permop objectName="Page1" opName="Button2"/>
-                <permop objectName="Page1" opName="Button3"/>
-                <permop objectName="Page2" opName="Button1"/>
-                <permop objectName="Page2" opName="Button2"/>
-                <permop objectName="Page2" opName="Button3"/>
-                <permop objectName="Page3" opName="Button1"/>
-                <permop objectName="Page3" opName="Button2"/>
-                <permop objectName="Page3" opName="Button3"/>
+                <permop objectName="com.mycompany.Page1" opName="Button1"/>
+                <permop objectName="com.mycompany.Page1" opName="Button2"/>
+                <permop objectName="com.mycompany.Page1" opName="Button3"/>
+                <permop objectName="com.mycompany.Page2" opName="Button1"/>
+                <permop objectName="com.mycompany.Page2" opName="Button2"/>
+                <permop objectName="com.mycompany.Page2" opName="Button3"/>
+                <permop objectName="com.mycompany.Page3" opName="Button1"/>
+                <permop objectName="com.mycompany.Page3" opName="Button2"/>
+                <permop objectName="com.mycompany.Page3" opName="Button3"/>
+                <permop objectName="us.jts.fortress.rbac.AccessMgrImpl" opName="addActiveRole"/>
+                <permop objectName="us.jts.fortress.rbac.AccessMgrImpl" opName="dropActiveRole"/>
             </delpermop>
 
             <addpermop>
-                <permop objectName="Page1" opName="Button1" type="Button"/>
-                <permop objectName="Page1" opName="Button2" type="Button"/>
-                <permop objectName="Page1" opName="Button3" type="Button"/>
-                <permop objectName="Page2" opName="Button1" type="Button"/>
-                <permop objectName="Page2" opName="Button2" type="Button"/>
-                <permop objectName="Page2" opName="Button3" type="Button"/>
-                <permop objectName="Page3" opName="Button1" type="Button"/>
-                <permop objectName="Page3" opName="Button2" type="Button"/>
-                <permop objectName="Page3" opName="Button3" type="Button"/>
+                <permop objectName="com.mycompany.Page1" opName="Button1" type="Button"/>
+                <permop objectName="com.mycompany.Page1" opName="Button2" type="Button"/>
+                <permop objectName="com.mycompany.Page1" opName="Button3" type="Button"/>
+                <permop objectName="com.mycompany.Page2" opName="Button1" type="Button"/>
+                <permop objectName="com.mycompany.Page2" opName="Button2" type="Button"/>
+                <permop objectName="com.mycompany.Page2" opName="Button3" type="Button"/>
+                <permop objectName="com.mycompany.Page3" opName="Button1" type="Button"/>
+                <permop objectName="com.mycompany.Page3" opName="Button2" type="Button"/>
+                <permop objectName="com.mycompany.Page3" opName="Button3" type="Button"/>
+                <permop objectName="us.jts.fortress.rbac.AccessMgrImpl" opName="addActiveRole" type="Button"/>
+                <permop objectName="us.jts.fortress.rbac.AccessMgrImpl" opName="dropActiveRole" type="Button"/>
             </addpermop>
 
             <delpermgrant>
-                <permgrant objName="Page1" opName="Button1" roleNm="ROLE_TEST1"/>
-                <permgrant objName="Page1" opName="Button2" roleNm="ROLE_TEST1"/>
-                <permgrant objName="Page1" opName="Button3" roleNm="ROLE_TEST1"/>
-                <permgrant objName="Page2" opName="Button1" roleNm="ROLE_TEST2"/>
-                <permgrant objName="Page2" opName="Button2" roleNm="ROLE_TEST2"/>
-                <permgrant objName="Page2" opName="Button3" roleNm="ROLE_TEST2"/>
-                <permgrant objName="Page3" opName="Button1" roleNm="ROLE_TEST3"/>
-                <permgrant objName="Page3" opName="Button2" roleNm="ROLE_TEST3"/>
-                <permgrant objName="Page3" opName="Button3" roleNm="ROLE_TEST3"/>
+                <permgrant objName="com.mycompany.Page1" opName="Button1" roleNm="ROLE_TEST1"/>
+                <permgrant objName="com.mycompany.Page1" opName="Button2" roleNm="ROLE_TEST1"/>
+                <permgrant objName="com.mycompany.Page1" opName="Button3" roleNm="ROLE_TEST1"/>
+                <permgrant objName="com.mycompany.Page2" opName="Button1" roleNm="ROLE_TEST2"/>
+                <permgrant objName="com.mycompany.Page2" opName="Button2" roleNm="ROLE_TEST2"/>
+                <permgrant objName="com.mycompany.Page2" opName="Button3" roleNm="ROLE_TEST2"/>
+                <permgrant objName="com.mycompany.Page3" opName="Button1" roleNm="ROLE_TEST3"/>
+                <permgrant objName="com.mycompany.Page3" opName="Button2" roleNm="ROLE_TEST3"/>
+                <permgrant objName="com.mycompany.Page3" opName="Button3" roleNm="ROLE_TEST3"/>
+                <permgrant objName="us.jts.fortress.rbac.AccessMgrImpl" opName="addActiveRole" roleNm="ROLE_TEST1"/>
+                <permgrant objName="us.jts.fortress.rbac.AccessMgrImpl" opName="dropActiveRole" roleNm="ROLE_TEST1"/>
             </delpermgrant>
 
             <addpermgrant>
-                <permgrant objName="Page1" opName="Button1" roleNm="ROLE_TEST1"/>
-                <permgrant objName="Page1" opName="Button2" roleNm="ROLE_TEST1"/>
-                <permgrant objName="Page1" opName="Button3" roleNm="ROLE_TEST1"/>
-                <permgrant objName="Page2" opName="Button1" roleNm="ROLE_TEST2"/>
-                <permgrant objName="Page2" opName="Button2" roleNm="ROLE_TEST2"/>
-                <permgrant objName="Page2" opName="Button3" roleNm="ROLE_TEST2"/>
-                <permgrant objName="Page3" opName="Button1" roleNm="ROLE_TEST3"/>
-                <permgrant objName="Page3" opName="Button2" roleNm="ROLE_TEST3"/>
-                <permgrant objName="Page3" opName="Button3" roleNm="ROLE_TEST3"/>
+                <permgrant objName="com.mycompany.Page1" opName="Button1" roleNm="ROLE_TEST1"/>
+                <permgrant objName="com.mycompany.Page1" opName="Button2" roleNm="ROLE_TEST1"/>
+                <permgrant objName="com.mycompany.Page1" opName="Button3" roleNm="ROLE_TEST1"/>
+                <permgrant objName="com.mycompany.Page2" opName="Button1" roleNm="ROLE_TEST2"/>
+                <permgrant objName="com.mycompany.Page2" opName="Button2" roleNm="ROLE_TEST2"/>
+                <permgrant objName="com.mycompany.Page2" opName="Button3" roleNm="ROLE_TEST2"/>
+                <permgrant objName="com.mycompany.Page3" opName="Button1" roleNm="ROLE_TEST3"/>
+                <permgrant objName="com.mycompany.Page3" opName="Button2" roleNm="ROLE_TEST3"/>
+                <permgrant objName="com.mycompany.Page3" opName="Button3" roleNm="ROLE_TEST3"/>
+                <permgrant objName="us.jts.fortress.rbac.AccessMgrImpl" opName="addActiveRole" roleNm="ROLE_TEST1"/>
+                <permgrant objName="us.jts.fortress.rbac.AccessMgrImpl" opName="dropActiveRole" roleNm="ROLE_TEST1"/>
             </addpermgrant>
+
+            <delsdset>
+                <sdset name="Role2Role3" setType="DYNAMIC"/>
+            </delsdset>
+
+            <addsdset>
+                <sdset name="Role2Role3" description="ROLE_TEST2 and ROLE_TEST3 cannot be activated simultaneously" cardinality="2" setType="DYNAMIC" setmembers="ROLE_TEST2,ROLE_TEST3"/>
+            </addsdset>
 
          </FortressAdmin>
     </target>

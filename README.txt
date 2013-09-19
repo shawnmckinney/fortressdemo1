@@ -63,7 +63,7 @@ ________________________________________________________________________________
 ###################################################################################
 # Section 1: Instructions for building and running this sample application
 ###################################################################################
-1. Download package: https://github.com/shawnmckinney/wicketsecurity/archive/master.zip
+1. Download package: https://github.com/shawnmckinney/fortressdemo1/archive/master.zip
 2. Extract
 3. Set JAVA_HOME
 4. Set M2_Home
