@@ -38,27 +38,6 @@ To use Admin UI:  http://localhost:8080/commander
 at the login prompt enter: test/test
 ***
 
-3. Run the fortress demo policy load.
-This is necessary to load test users, roles and permissions to LDAP
-Note: The fortress demo policy is here:
-https://github.com/shawnmckinney/wicketsecurityfortress/blob/master/demo-fortressproject-users.xml
-
-a. Copy the demo-fortressproject-users.xml file to FORTRESS/ldap/setup folder under Quickstart package.
-b. from FORTRESS root run this command:
-./b.sh admin -Dparam1=ldap/setup/demo-fortressproject-users.xml
-
-after this steps runs you will see this:
-
-admin:
-     [echo] ###############  Run Fortress Ant script ldap/setup/demo-fortressproject-users.xml  ###############
- [startAnt] Buildfile: /home/smckinn/fortress/builder/ldap/setup/demo-fortressproject-users.xml
- [startAnt]
- [startAnt] all:
- [startAnt] [FortressAdmin] ConnectionPool (Wed Sep 11 10:32:19 PDT 2013) : adding a connection to pool...
- [startAnt]
- [startAnt] BUILD SUCCESSFUL
- [startAnt] Total time: 2 seconds
-
 ___________________________________________________________________________________
 ###################################################################################
 # Section 1: Instructions for building and running this sample application
@@ -67,11 +46,14 @@ ________________________________________________________________________________
 2. Extract
 3. Set JAVA_HOME
 4. Set M2_Home
-5. Run the build from the root package:
+5. Set ANT_HOME
+6. Run this commands from the root package:
+$ mvn install
+7. Run this commands from the root package:
 $ mvn tomcat:deploy
-6. Go to this URL:
+8. Go to this URL:
 http://localhost:8080/fortressdemo1
-7. Use the credentials defined in demo-fortressproject-users.xml (from step installing Fortress step 3):
+9. Use the credentials defined in demo-fortressproject-users.xml (from step installing Fortress step 3):
 user1/password
 user2/password
 user3/password
