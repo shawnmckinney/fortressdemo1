@@ -47,9 +47,9 @@ ________________________________________________________________________________
 3. Set JAVA_HOME
 4. Set M2_Home
 5. Set ANT_HOME
-6. Run this commands from the root package:
+6. Run this command from the root package:
 $ mvn install
-7. Run this commands from the root package:
+7. Run this command from the root package:
 $ mvn tomcat:deploy
 8. Go to this URL:
 http://localhost:8080/fortressdemo1
