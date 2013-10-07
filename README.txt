@@ -26,14 +26,14 @@ http://www.jts.us/iamfortress/guides/README-QUICKSTART.html
 
 *** Note: This guide also in root of Fortress Quickstart download package.
 
-Perform Steps I, II, III and IX (only)
+Perform Steps I, II, III and V (only)
 I. Instructions to extract and configure Fortress Builder Package to Target System
 II. Instructions to run the Fortress Ant Build
 III. Instructions to run the Builder to Install Symas OpenLDAP, configure and load with seed data
-IX. Instructions to install Commander Web UI Demo
+V. Instructions to install Commander Web UI Demo
 
 ***
-Note: After completing Step IX above Fortress' Web administration UI will be deployed to Tomcat.
+Note: After completing Step V above Fortress' Web administration UI (Commander) will be deployed to Tomcat.
 To use Admin UI:  http://localhost:8080/commander
 at the login prompt enter: test/test
 ***
