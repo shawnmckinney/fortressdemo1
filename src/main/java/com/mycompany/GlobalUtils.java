@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class GlobalUtils
 {
-    public static final String WINDOW_LOCATION_REPLACE_LOGIN_LOGIN_HTML = "window.location.replace(\"/login/login.html\");";
+    public static final String WINDOW_LOCATION_REPLACE_DEMO_HOME_HTML = "window.location.replace(\"/fortressdemo1/home.html\");";
     private static final String PERMS_CACHED = "perms.cached";
     public static final boolean IS_PERM_CACHED = ( ( Config.getProperty( PERMS_CACHED ) != null ) && ( Config
         .getProperty( PERMS_CACHED ).equalsIgnoreCase( "true" ) ) );

@@ -18,8 +18,8 @@ Note: This demo uses Apache Tomcat, Maven, Ant, OpenLDAP and Fortress Realm to d
 target environment.  All of these dependencies (and more) will be installed to your machine after successful completion
 of this section.
 
-1. Download one of the Fortress Quickstart package for Linux from here: http://iamfortress.org/download
-*** Note: For this demo you must choose one of the four linux packages as the windows quickstart does not include Tomcat server.
+1. Download one of the Fortress Quickstart packages from: http://iamfortress.org/download
+Fortress Quickstart packages includes everything you need but the Java JVM.
 
 2. Follow these steps: http://www.jts.us/iamfortress/guides/README-QUICKSTART.html:
 http://www.jts.us/iamfortress/guides/README-QUICKSTART.html

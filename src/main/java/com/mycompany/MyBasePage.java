@@ -159,7 +159,7 @@ public abstract class MyBasePage extends WebPage
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
-                            return GlobalUtils.WINDOW_LOCATION_REPLACE_LOGIN_LOGIN_HTML;
+                            return GlobalUtils.WINDOW_LOCATION_REPLACE_DEMO_HOME_HTML;
                         }
                     };
                     attributes.getAjaxCallListeners().add( ajaxCallListener );
@@ -200,7 +200,7 @@ public abstract class MyBasePage extends WebPage
                         @Override
                         public CharSequence getFailureHandler( Component component )
                         {
-                            return GlobalUtils.WINDOW_LOCATION_REPLACE_LOGIN_LOGIN_HTML;
+                            return GlobalUtils.WINDOW_LOCATION_REPLACE_DEMO_HOME_HTML;
                         }
                     };
                     attributes.getAjaxCallListeners().add( ajaxCallListener );

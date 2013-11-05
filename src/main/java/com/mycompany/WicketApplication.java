@@ -43,5 +43,6 @@ public class WicketApplication extends WebApplication
 		// add your configuration here
         getComponentInstantiationListeners().add(new SpringComponentInjector(this));
         getMarkupSettings().setStripWicketTags(true);
+        mountPage("home.html", LaunchPage.class);
 	}
 }
