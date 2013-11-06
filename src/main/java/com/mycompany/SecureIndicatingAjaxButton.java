@@ -64,6 +64,25 @@ public class SecureIndicatingAjaxButton extends IndicatingAjaxButton
             setVisible( false );
      }
 
+    protected boolean checkAccess( String objectName, String opName )
+    {
+        boolean isAuthorized = false;
+        try
+        {
+            RbacSession session = ( RbacSession )getSession();
+            Permission permission = new Permission( objectName, opName );
+            //Permission permission = new Permission( objectName, perm.getOpName() );
+            isAuthorized = accessMgr.checkAccess( session.getRbacSession(), permission );
+            LOG.info( "Fortress checkAccess objectName: " + permission.getObjectName() + " operationName: " + permission.getOpName() + " userId: " + session.getRbacSession().getUserId() + " result: " + isAuthorized);
+        }
+        catch(us.jts.fortress.SecurityException se)
+        {
+            String error = "Fortress SecurityException checkAccess objectName: " + this.perm.getObjectName() + " operationName: " + this.perm.getOpName() + " error=" + se;
+            LOG.error( error );
+        }
+        return isAuthorized;
+    }
+
     protected boolean checkAccess( )
     {
         boolean isAuthorized = false;

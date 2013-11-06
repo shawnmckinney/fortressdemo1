@@ -66,10 +66,8 @@
             <url-pattern>/wicket/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
-            <!-- Anyone with one of the listed roles may access this area -->
-            <role-name>ROLE_TEST1</role-name>
-            <role-name>ROLE_TEST2</role-name>
-            <role-name>ROLE_TEST3</role-name>
+            <!-- Anyone with listed role may access this area -->
+            <role-name>ROLE_TEST_BASE</role-name>
         </auth-constraint>
     </security-constraint>
     <login-config>
@@ -81,6 +79,9 @@
         </form-login-config>
     </login-config>
     <!-- Security roles referenced by this web application -->
+    <security-role>
+        <role-name>ROLE_TEST_BASE</role-name>
+    </security-role>
     <security-role>
         <role-name>ROLE_TEST1</role-name>
     </security-role>

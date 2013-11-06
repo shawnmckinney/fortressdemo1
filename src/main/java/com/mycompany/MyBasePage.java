@@ -95,14 +95,14 @@ public abstract class MyBasePage extends WebPage
     {
         add( new Label( LINKS_LABEL, new PropertyModel<String>( this, LINKS_LABEL ) ) );
         SecureBookmarkablePageLink page1Link = new SecureBookmarkablePageLink( GlobalUtils.BTN_PAGE_1, Page1.class,
-            GlobalUtils.ROLE_TEST_1 );
+            GlobalUtils.ROLE_TEST1 );
         add( page1Link );
         SecureBookmarkablePageLink page2Link = new SecureBookmarkablePageLink( GlobalUtils.BTN_PAGE_2, Page2.class,
-            GlobalUtils.ROLE_TEST_1 +
+            GlobalUtils.ROLE_TEST1 +
             "," + GlobalUtils.ROLE_TEST2 );
         add( page2Link );
         SecureBookmarkablePageLink page3Link = new SecureBookmarkablePageLink( GlobalUtils.BTN_PAGE_3, Page3.class,
-            GlobalUtils.ROLE_TEST_1 +
+            GlobalUtils.ROLE_TEST1 +
             "," + GlobalUtils.ROLE_TEST3 );
         add( page3Link );
     }
@@ -129,23 +129,31 @@ public abstract class MyBasePage extends WebPage
                 "roleSelection" ), inactiveRoles, new ComboBoxRenderer<UserRole>( "name" ) );
             rolesCB.setOutputMarkupId( true );
             add( rolesCB );
+/*
             add( new SecureIndicatingAjaxButton( this, GlobalUtils.ROLES_ACTIVATE,
                 "us.jts.fortress.rbac.AccessMgrImpl", "addActiveRole" )
+*/
+            add( new SecureIndicatingAjaxButton( GlobalUtils.ROLES_ACTIVATE, "ROLE_TEST_BASE")
             {
                 private static final long serialVersionUID = 1L;
 
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form<?> form )
                 {
-                    if ( checkAccess() )
+                    if ( VUtil.isNotNullOrEmpty( roleSelection ) )
                     {
-                        if ( VUtil.isNotNullOrEmpty( roleSelection ) )
+                        if ( checkAccess( roleSelection, "addActiveRole" ) )
                         {
                             if ( addActiveRole( target, roleSelection ) )
                             {
                                 setMyResponsePage();
                             }
                             target.add( form );
+                        }
+                        else
+                        {
+                            target.appendJavaScript(";alert('Unauthorized');");
+                            roleSelection = "";
                         }
                     }
                 }
@@ -170,23 +178,31 @@ public abstract class MyBasePage extends WebPage
                 "activeRoleSelection" ), activeRoles, new ComboBoxRenderer<UserRole>( "name" ) );
             activeRolesCB.setOutputMarkupId( true );
             add( activeRolesCB );
+/*
             add( new SecureIndicatingAjaxButton( this, GlobalUtils.ROLES_DEACTIVATE,
                 "us.jts.fortress.rbac.AccessMgrImpl", "dropActiveRole" )
+*/
+            add( new SecureIndicatingAjaxButton( GlobalUtils.ROLES_DEACTIVATE, "ROLE_TEST_BASE")
             {
                 private static final long serialVersionUID = 1L;
 
                 @Override
                 protected void onSubmit( AjaxRequestTarget target, Form<?> form )
                 {
-                    if ( checkAccess() )
+                    if ( VUtil.isNotNullOrEmpty( activeRoleSelection ) )
                     {
-                        if ( VUtil.isNotNullOrEmpty( activeRoleSelection ) )
+                        if ( checkAccess( activeRoleSelection, "dropActiveRole" ) )
                         {
                             if ( dropActiveRole( target, activeRoleSelection ) )
                             {
                                 setMyResponsePage();
                             }
                             target.add( form );
+                        }
+                        else
+                        {
+                            target.appendJavaScript(";alert('Unauthorized');");
+                            activeRoleSelection = "";
                         }
                     }
                 }
@@ -251,9 +267,10 @@ public abstract class MyBasePage extends WebPage
                     {
                         inactiveRoles.remove( activatedRole );
                     }
-
+                    inactiveRoles.remove( new UserRole( "ROLE_TEST_USER" ) );
                     LOG.info( "user: " + session.getUserId() + " inactiveRoles for activate list: " + inactiveRoles );
                     activeRoles = session.getRoles();
+                    //activeRoles.remove( new UserRole ( "ROLE_TEST_USER" ) );
                 }
                 catch ( us.jts.fortress.SecurityException se )
                 {
@@ -373,6 +390,8 @@ public abstract class MyBasePage extends WebPage
                         User outUser = reviewMgr.readUser( inUser );
                         String szRoleToActivate = outUser.getProperty( "fortressdemo1" );
                         inUser.setRole( new UserRole( szRoleToActivate ) );
+                        // This role enables user to activate/inactivate other roles:
+                        inUser.setRole( new UserRole( "ROLE_TEST_USER" ) );
                         Session session = accessMgr.createSession( inUser, true );
                         String message = "RBAC Session successfully created for userId: " + session.getUserId();
                         LOG.info( message );

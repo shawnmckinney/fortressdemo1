@@ -92,6 +92,26 @@ public class FortressDemo1SeleniumITCase
         // Now activate ROLE_TEST2:
         activateRole(GlobalUtils.ROLE_TEST2);
         //TUtils.sleep( 1 );
+        // Make sure the pop-up is correct:
+        if(!processPopup("Role selection ROLE_TEST2 activation failed because of Dynamic SoD rule violation"))
+            fail("doActivate Button Test 2 Failed: " + GlobalUtils.BTN_PAGE_2 + "." + GlobalUtils.BUTTON1);
+        doNegativeButtonTest( GlobalUtils.USER_1, GlobalUtils.BTN_PAGE_2, GlobalUtils.BUTTON1 );
+
+        // Go back to Page 1
+        driver.findElement( By.linkText( GlobalUtils.PAGE_1 ) ).click();
+
+        // Now deactivate ROLE_TEST1:
+        ( ( JavascriptExecutor ) driver ).executeScript( "$(document.getElementById('" + GlobalUtils.ACTIVE_ROLES + "')).val('" + GlobalUtils.ROLE_TEST1 + "');" );
+        driver.findElement( By.name( GlobalUtils.ROLES_DEACTIVATE ) ).click();
+        TUtils.sleep( 1 );
+        doNegativeButtonTest( GlobalUtils.USER_1, GlobalUtils.BTN_PAGE_1, GlobalUtils.BUTTON1 );
+
+        // Now go back to Page 2 again
+        driver.findElement( By.linkText( GlobalUtils.PAGE_2 ) ).click();
+        doNegativeButtonTest( GlobalUtils.USER_1, GlobalUtils.BTN_PAGE_2, GlobalUtils.BUTTON1 );
+
+        // Now active ROLE_TEST2:
+        activateRole(GlobalUtils.ROLE_TEST2);
 
         // Click the buttons on page 2
         doPositiveButtonTests( null, GlobalUtils.USER_1, GlobalUtils.BTN_PAGE_2 );

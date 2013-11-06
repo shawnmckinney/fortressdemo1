@@ -2,7 +2,7 @@ This is free and unencumbered software released into the public domain.
 ___________________________________________________________________________________
 ###################################################################################
 README for Wicket, Java EE, Spring and Fortress RBAC Security Sample
-Last updated: Sep 19, 2013
+Last updated: Nov 5, 2013
 ___________________________________________________________________________________
 ###################################################################################
 # Prerequisites
@@ -70,9 +70,18 @@ ________________________________________________________________________________
 ###################################################################################
 # Section 3: Sample RBAC Policy with Fortress
 ###################################################################################
-user1 can view all pages but only buttons on Page1
-user1 default role activation is ROLE_TEST1
-user1 can activate role ROLE_TEST2 or ROLE_TEST3
-user1 cannot have all three roles activated simultaneously because of dynamic SoD constraint preventing it.
-user2 can only view Page2 and Page2 buttons
-user3 can only view Page3 and Page3 buttons
+Dynamic Separation of Duty constraints restrict one role from set (ROLE_TEST1, ROLE_TEST2, and ROLE_TEST3) that may be activated at a time.
+- user1 is assigned ROLE_TEST1, ROLE_TEST2, ROLE_TEST3
+- user2 is assigned ROLE_TEST2
+- user3 is assigned ROLE_TEST3
+- user1 default role activation is ROLE_TEST1
+- user1 can view all pages but can only view buttons corresponding with its activated role
+- user1 can activate one and only one role from set ( ROLE_TEST1, ROLE_TEST2 or ROLE_TEST3 )
+- user2 can only view Page2 and Page2 buttons
+- user3 can only view Page3 and Page3 buttons
+
+Rationale for policy:
+Consider an example of three bank tellers (teller1, teller2, teller3) and three bank branches (branch1, branch, branch3).
+One teller (teller1) may work in any of the three branches (branch1, branch2, branch3) but can only be active in one branch at a time.
+The other two Tellers (teller2, teller3) are restricted to branch2 and branch3 respectively.
+RBAC provides a means in which to enforce this policy following the principle of least privilege.
