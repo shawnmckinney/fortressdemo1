@@ -79,11 +79,11 @@
             <sec:filter-invocation-definition-source>
                 <!-- before spring interceptor recognizes these roles,the j2ee preauthentication filter requires prior java ee security constraint in web.xml -->
                 <sec:intercept-url pattern="/wicket/bookmarkable/com.mycompany.page1"
-                                   access="ROLE_TEST1"/>
+                                   access="ROLE_TEST_SUPER,ROLE_TEST1"/>
                 <sec:intercept-url pattern="/wicket/bookmarkable/com.mycompany.page2"
-                                   access="ROLE_TEST1,ROLE_TEST2"/>
+                                   access="ROLE_TEST_SUPER,ROLE_TEST2"/>
                 <sec:intercept-url pattern="/wicket/bookmarkable/com.mycompany.page3"
-                                   access="ROLE_TEST1,ROLE_TEST3"/>
+                                   access="ROLE_TEST_SUPER,ROLE_TEST3"/>
             </sec:filter-invocation-definition-source>
         </property>
     </bean>

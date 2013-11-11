@@ -71,14 +71,14 @@ ________________________________________________________________________________
 # Section 3: Sample RBAC Policy with Fortress
 ###################################################################################
 Dynamic Separation of Duty constraints restrict one role from set (ROLE_TEST1, ROLE_TEST2, and ROLE_TEST3) that may be activated at a time.
-- user1 is assigned ROLE_TEST1, ROLE_TEST2, ROLE_TEST3
-- user2 is assigned ROLE_TEST2
-- user3 is assigned ROLE_TEST3
-- user1 default role activation is ROLE_TEST1
-- user1 can view all pages but can only view buttons corresponding with its activated role
+- user1 is assigned ROLE_TEST1, ROLE_TEST2, ROLE_TEST3 & ROLE_TEST_SUPER
+- user2 is assigned ROLE_TEST2 & ROLE_TEST_USER
+- user3 is assigned ROLE_TEST3 & ROLE_TEST_USER
+- user1 default role activation is ROLE_TEST1 & ROLE_TEST_SUPER
+- user1 can view all pages (granted by ROLE_TEST_SUPER) but can only view buttons corresponding with its activated role ( ROLE_TEST1, ROLE_TEST2 or ROLE_TEST3 )
 - user1 can activate one and only one role from set ( ROLE_TEST1, ROLE_TEST2 or ROLE_TEST3 )
-- user2 can only view Page2 and Page2 buttons
-- user3 can only view Page3 and Page3 buttons
+- user2 can only view Page2 buttons
+- user3 can only view Page3 buttons
 
 Rationale for policy:
 Consider an example of three bank tellers (teller1, teller2, teller3) and three bank branches (branch1, branch, branch3).

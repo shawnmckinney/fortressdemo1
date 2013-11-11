@@ -5,6 +5,7 @@ package com.mycompany;
 
 import com.googlecode.wicket.jquery.ui.kendo.combobox.ComboBox;
 import com.googlecode.wicket.jquery.ui.kendo.combobox.ComboBoxRenderer;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -20,11 +21,13 @@ import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import us.jts.fortress.AccessMgr;
 import us.jts.fortress.GlobalErrIds;
+import us.jts.fortress.GlobalIds;
 import us.jts.fortress.ReviewMgr;
 import us.jts.fortress.rbac.Permission;
 import us.jts.fortress.rbac.Session;
 import us.jts.fortress.rbac.User;
 import us.jts.fortress.rbac.UserRole;
+import us.jts.fortress.rbac.Warning;
 import us.jts.fortress.util.attr.VUtil;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,7 +35,8 @@ import java.security.Principal;
 import java.util.List;
 
 /**
- * Base class for Fortressdemo1 Wicket sample project.  It contains security control functions to demonstrate ANSI RBAC security concepts.
+ * Base class for Fortressdemo1 Wicket sample project.  It contains security control functions to demonstrate ANSI
+ * RBAC security concepts.
  *
  * @author Shawn McKinney
  * @version $Rev$
@@ -74,10 +78,10 @@ public abstract class MyBasePage extends WebPage
             }
         };
         add( actionLink );
-        infoTA = new TextArea<String>("infoField", Model.of( infoField ) );
+        infoTA = new TextArea<String>( "infoField", Model.of( infoField ) );
         add( infoTA );
         add( new Label( "footer", GlobalUtils.FOOTER ) );
-        if(!initializeRbacSession())
+        if ( !initializeRbacSession() )
         {
             actionLink.setVisible( false );
         }
@@ -95,14 +99,15 @@ public abstract class MyBasePage extends WebPage
     {
         add( new Label( LINKS_LABEL, new PropertyModel<String>( this, LINKS_LABEL ) ) );
         SecureBookmarkablePageLink page1Link = new SecureBookmarkablePageLink( GlobalUtils.BTN_PAGE_1, Page1.class,
-            GlobalUtils.ROLE_TEST1 );
+            GlobalUtils.ROLE_SUPER +
+            "," + GlobalUtils.ROLE_TEST1 );
         add( page1Link );
         SecureBookmarkablePageLink page2Link = new SecureBookmarkablePageLink( GlobalUtils.BTN_PAGE_2, Page2.class,
-            GlobalUtils.ROLE_TEST1 +
+            GlobalUtils.ROLE_SUPER +
             "," + GlobalUtils.ROLE_TEST2 );
         add( page2Link );
         SecureBookmarkablePageLink page3Link = new SecureBookmarkablePageLink( GlobalUtils.BTN_PAGE_3, Page3.class,
-            GlobalUtils.ROLE_TEST1 +
+            GlobalUtils.ROLE_SUPER +
             "," + GlobalUtils.ROLE_TEST3 );
         add( page3Link );
     }
@@ -133,7 +138,7 @@ public abstract class MyBasePage extends WebPage
             add( new SecureIndicatingAjaxButton( this, GlobalUtils.ROLES_ACTIVATE,
                 "us.jts.fortress.rbac.AccessMgrImpl", "addActiveRole" )
 */
-            add( new SecureIndicatingAjaxButton( GlobalUtils.ROLES_ACTIVATE, "ROLE_TEST_BASE")
+            add( new SecureIndicatingAjaxButton( GlobalUtils.ROLES_ACTIVATE, "ROLE_TEST_BASE" )
             {
                 private static final long serialVersionUID = 1L;
 
@@ -152,7 +157,7 @@ public abstract class MyBasePage extends WebPage
                         }
                         else
                         {
-                            target.appendJavaScript(";alert('Unauthorized');");
+                            target.appendJavaScript( ";alert('Unauthorized');" );
                             roleSelection = "";
                         }
                     }
@@ -182,7 +187,7 @@ public abstract class MyBasePage extends WebPage
             add( new SecureIndicatingAjaxButton( this, GlobalUtils.ROLES_DEACTIVATE,
                 "us.jts.fortress.rbac.AccessMgrImpl", "dropActiveRole" )
 */
-            add( new SecureIndicatingAjaxButton( GlobalUtils.ROLES_DEACTIVATE, "ROLE_TEST_BASE")
+            add( new SecureIndicatingAjaxButton( GlobalUtils.ROLES_DEACTIVATE, "ROLE_TEST_BASE" )
             {
                 private static final long serialVersionUID = 1L;
 
@@ -201,7 +206,7 @@ public abstract class MyBasePage extends WebPage
                         }
                         else
                         {
-                            target.appendJavaScript(";alert('Unauthorized');");
+                            target.appendJavaScript( ";alert('Unauthorized');" );
                             activeRoleSelection = "";
                         }
                     }
@@ -251,7 +256,8 @@ public abstract class MyBasePage extends WebPage
         }
 
         /**
-         * This loads the set of user's activated roles into a local page variable.  It is used for deactivate combo box.
+         * This loads the set of user's activated roles into a local page variable.  It is used for deactivate combo
+         * box.
          */
         private void loadActivatedRoleSets()
         {
@@ -304,10 +310,29 @@ public abstract class MyBasePage extends WebPage
         try
         {
             RbacSession session = ( RbacSession ) getSession();
+            session.getRbacSession().setWarnings( null );
             accessMgr.addActiveRole( session.getRbacSession(), new UserRole( roleName ) );
+            List<Warning> warnings = session.getRbacSession().getWarnings();
+            if ( VUtil.isNotNullOrEmpty( warnings ) )
+            {
+                for ( Warning warning : warnings )
+                {
+                    //if(warning.getId() == GlobalErrIds.)
+                    LOG.info( "Warning: " + warning.getMsg() + " errCode: " + warning.getId() + " name: " + warning
+                        .getName() + " type: " + warning.getType().toString() );
+                    if ( warning.getType() == Warning.Type.ROLE && warning.getName().equalsIgnoreCase( roleName ) )
+                    {
+                        String error = warning.getMsg() + " code: " + warning.getId();
+                        LOG.error( error );
+                        target.appendJavaScript( ";alert('" + error + "');" );
+                        return false;
+                    }
+                }
+            }
+
             getPermissions();
             isSuccessful = true;
-            String message = "Fortress addActiveRole roleName: " + roleName + " was successful";
+            String message = "Activate role name: " + roleName + " successful";
             LOG.info( message );
         }
         catch ( us.jts.fortress.SecurityException se )
@@ -388,10 +413,13 @@ public abstract class MyBasePage extends WebPage
                         // Create an RBAC session and attach to Wicket session:
                         User inUser = new User( principal.getName() );
                         User outUser = reviewMgr.readUser( inUser );
-                        String szRoleToActivate = outUser.getProperty( "fortressdemo1" );
-                        inUser.setRole( new UserRole( szRoleToActivate ) );
+                        String szRolesToActivate = outUser.getProperty( "fortressdemo1" );
+                        String[] tokens = StringUtils.splitPreserveAllTokens( szRolesToActivate, "," );
+                        inUser.setRole( new UserRole( tokens[0] ) );
+                        inUser.setRole( new UserRole( tokens[1] ) );
+
                         // This role enables user to activate/inactivate other roles:
-                        inUser.setRole( new UserRole( "ROLE_TEST_USER" ) );
+                        //inUser.setRole( new UserRole( "ROLE_TEST_USER" ) );
                         Session session = accessMgr.createSession( inUser, true );
                         String message = "RBAC Session successfully created for userId: " + session.getUserId();
                         LOG.info( message );

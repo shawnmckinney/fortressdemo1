@@ -83,6 +83,9 @@
         <role-name>ROLE_TEST_BASE</role-name>
     </security-role>
     <security-role>
+        <role-name>ROLE_TEST_SUPER</role-name>
+    </security-role>
+    <security-role>
         <role-name>ROLE_TEST1</role-name>
     </security-role>
     <security-role>

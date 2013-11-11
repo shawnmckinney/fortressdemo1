@@ -43,6 +43,7 @@ public class GlobalUtils
     public static final String PAGE_3 = "PAGE3";
     public static final String USER_3 = "user3";
     public static final String BTN_PAGE_3 = "page3";
+    public static final String ROLE_SUPER = "ROLE_TEST_SUPER";
     public static final String ROLE_TEST1 = "ROLE_TEST1";
     public static final String ROLE_TEST2 = "ROLE_TEST2";
     public static final String ROLE_TEST3 = "ROLE_TEST3";

@@ -28,13 +28,13 @@
             </deluser>
 
             <adduser>
-                <user userId="user1" password="password" description="Wicket Fortress Project Demo User1" ou="WicketUsers" cn="test1" sn="user1"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0" userProps="fortressdemo1:ROLE_TEST1"/>
-                <user userId="user2" password="password" description="Wicket Fortress Project Demo User1" ou="WicketUsers" cn="test2" sn="user2"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0" userProps="fortressdemo1:ROLE_TEST2"/>
-                <user userId="user3" password="password" description="Wicket Fortress Project Demo User1" ou="WicketUsers" cn="test3" sn="user3"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0" userProps="fortressdemo1:ROLE_TEST3"/>
+                <user userId="user1" password="password" description="Wicket Fortress Project Demo User1" ou="WicketUsers" cn="test1" sn="user1"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0" userProps="fortressdemo1:ROLE_TEST1,ROLE_TEST_SUPER"/>
+                <user userId="user2" password="password" description="Wicket Fortress Project Demo User1" ou="WicketUsers" cn="test2" sn="user2"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0" userProps="fortressdemo1:ROLE_TEST2,ROLE_TEST_USER"/>
+                <user userId="user3" password="password" description="Wicket Fortress Project Demo User1" ou="WicketUsers" cn="test3" sn="user3"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0" userProps="fortressdemo1:ROLE_TEST3,ROLE_TEST_USER"/>
             </adduser>
 
             <deluserrole>
-                <userrole userId="user1" name="ROLE_TEST_USER"/>
+                <userrole userId="user1" name="ROLE_TEST_SUPER"/>
                 <userrole userId="user2" name="ROLE_TEST_USER"/>
                 <userrole userId="user3" name="ROLE_TEST_USER"/>
                 <userrole userId="user1" name="ROLE_TEST1"/>
@@ -45,7 +45,7 @@
             </deluserrole>
 
             <adduserrole>
-                <userrole userId="user1" name="ROLE_TEST_USER" beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
+                <userrole userId="user1" name="ROLE_TEST_SUPER" beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
                 <userrole userId="user2" name="ROLE_TEST_USER" beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
                 <userrole userId="user3" name="ROLE_TEST_USER" beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
                 <userrole userId="user1" name="ROLE_TEST1" beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
@@ -57,6 +57,7 @@
 
             <delrole>
                 <role name="ROLE_TEST_USER"/>
+                <role name="ROLE_TEST_SUPER"/>
                 <role name="ROLE_TEST_BASE"/>
                 <role name="ROLE_TEST1"/>
                 <role name="ROLE_TEST2"/>
@@ -65,6 +66,7 @@
 
             <addrole>
                 <role name="ROLE_TEST_USER" description="Used for Java EE Security"/>
+                <role name="ROLE_TEST_SUPER" description="Used for Users that have access to all three pages"/>
                 <role name="ROLE_TEST_BASE" description="Base Role for Tests"/>
                 <role name="ROLE_TEST1" description="Grants Test Wicket Page 1, 2, 3"/>
                 <role name="ROLE_TEST2" description="Grants Test Wicket Page 2"/>
@@ -75,6 +77,7 @@
                 <relationship child="ROLE_TEST1" parent="ROLE_TEST_BASE"/>
                 <relationship child="ROLE_TEST2" parent="ROLE_TEST_BASE"/>
                 <relationship child="ROLE_TEST3" parent="ROLE_TEST_BASE"/>
+                <relationship child="ROLE_TEST_SUPER" parent="ROLE_TEST_USER"/>
             </addroleinheritance>
 
             <delpermobj>
@@ -147,6 +150,9 @@
                 <permgrant objName="ROLE_TEST1" opName="addActiveRole" roleNm="ROLE_TEST_USER"/>
                 <permgrant objName="ROLE_TEST2" opName="addActiveRole" roleNm="ROLE_TEST_USER"/>
                 <permgrant objName="ROLE_TEST3" opName="addActiveRole" roleNm="ROLE_TEST_USER"/>
+                <permgrant objName="ROLE_TEST1" opName="addActiveRole" roleNm="ROLE_TEST_SUPER"/>
+                <permgrant objName="ROLE_TEST2" opName="addActiveRole" roleNm="ROLE_TEST_SUPER"/>
+                <permgrant objName="ROLE_TEST3" opName="addActiveRole" roleNm="ROLE_TEST_SUPER"/>
                 <permgrant objName="ROLE_TEST1" opName="dropActiveRole" roleNm="ROLE_TEST1"/>
                 <permgrant objName="ROLE_TEST2" opName="dropActiveRole" roleNm="ROLE_TEST1"/>
                 <permgrant objName="ROLE_TEST3" opName="dropActiveRole" roleNm="ROLE_TEST1"/>
@@ -170,6 +176,12 @@
                 <permgrant objName="ROLE_TEST1" opName="dropActiveRole" roleNm="ROLE_TEST_USER"/>
                 <permgrant objName="ROLE_TEST2" opName="dropActiveRole" roleNm="ROLE_TEST_USER"/>
                 <permgrant objName="ROLE_TEST3" opName="dropActiveRole" roleNm="ROLE_TEST_USER"/>
+                <permgrant objName="ROLE_TEST1" opName="addActiveRole" roleNm="ROLE_TEST_SUPER"/>
+                <permgrant objName="ROLE_TEST2" opName="addActiveRole" roleNm="ROLE_TEST_SUPER"/>
+                <permgrant objName="ROLE_TEST3" opName="addActiveRole" roleNm="ROLE_TEST_SUPER"/>
+                <permgrant objName="ROLE_TEST1" opName="dropActiveRole" roleNm="ROLE_TEST_SUPER"/>
+                <permgrant objName="ROLE_TEST2" opName="dropActiveRole" roleNm="ROLE_TEST_SUPER"/>
+                <permgrant objName="ROLE_TEST3" opName="dropActiveRole" roleNm="ROLE_TEST_SUPER"/>
             </addpermgrant>
 
             <delsdset>
