@@ -25,7 +25,7 @@
         <dependency>
             <groupId>us.joshuatreesoftware</groupId>
             <artifactId>fortress</artifactId>
-            <version>1.0-RC32</version>
+            <version>1.0-RC33</version>
         </dependency>
         <dependency>
             <groupId>org.apache.wicket</groupId>
