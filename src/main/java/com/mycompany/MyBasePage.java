@@ -3,8 +3,8 @@
  */
 package com.mycompany;
 
-import com.googlecode.wicket.jquery.ui.kendo.combobox.ComboBox;
-import com.googlecode.wicket.jquery.ui.kendo.combobox.ComboBoxRenderer;
+import com.googlecode.wicket.kendo.ui.form.combobox.ComboBox;
+import com.googlecode.wicket.kendo.ui.renderer.ChoiceRenderer;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
@@ -131,7 +131,7 @@ public abstract class MyBasePage extends WebPage
         private void addRoleActivationComboBoxesAndButtons()
         {
             rolesCB = new ComboBox<UserRole>( GlobalUtils.INACTIVE_ROLES, new PropertyModel<String>( this,
-                "roleSelection" ), inactiveRoles, new ComboBoxRenderer<UserRole>( "name" ) );
+                "roleSelection" ), inactiveRoles, new ChoiceRenderer<UserRole>( "name" ) );
             rolesCB.setOutputMarkupId( true );
             add( rolesCB );
 /*
@@ -180,7 +180,7 @@ public abstract class MyBasePage extends WebPage
             } );
 
             activeRolesCB = new ComboBox<UserRole>( GlobalUtils.ACTIVE_ROLES, new PropertyModel<String>( this,
-                "activeRoleSelection" ), activeRoles, new ComboBoxRenderer<UserRole>( "name" ) );
+                "activeRoleSelection" ), activeRoles, new ChoiceRenderer<UserRole>( "name" ) );
             activeRolesCB.setOutputMarkupId( true );
             add( activeRolesCB );
 /*

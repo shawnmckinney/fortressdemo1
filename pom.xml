@@ -9,14 +9,13 @@
     <packaging>war</packaging>
 
     <properties>
-        <wicket.version>6.12.0</wicket.version>
-        <wicket.jquery.version>6.11.0</wicket.jquery.version>
+        <wicket.version>6.14.0</wicket.version>
+        <wicket.jquery.version>6.14.0</wicket.jquery.version>
         <slf4j.version>1.5.11</slf4j.version>
         <spring.version>3.2.3.RELEASE</spring.version>
         <spring.security.version>3.1.4.RELEASE</spring.security.version>
         <jetty.version>8.1.8.v20121106</jetty.version>
         <skipTests>true</skipTests>
-<!--        <ANT_HOME></ANT_HOME>-->
     </properties>
 
     <dependencies>
@@ -25,7 +24,7 @@
         <dependency>
             <groupId>us.joshuatreesoftware</groupId>
             <artifactId>fortress</artifactId>
-            <version>1.0-RC34</version>
+            <version>1.0-RC35</version>
         </dependency>
         <dependency>
             <groupId>org.apache.wicket</groupId>
@@ -335,6 +334,22 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>load-ldap</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+                <property>
+                    <name>!ANT_HOME</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <properties>
+                <ANT_HOME>/home/smckinn/GIT/fortressDev/apache-ant/</ANT_HOME>
+            </properties>
+        </profile>
+    </profiles>
 
     <repositories>
         <repository>

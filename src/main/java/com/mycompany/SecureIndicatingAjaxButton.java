@@ -73,11 +73,11 @@ public class SecureIndicatingAjaxButton extends IndicatingAjaxButton
             Permission permission = new Permission( objectName, opName );
             //Permission permission = new Permission( objectName, perm.getOpName() );
             isAuthorized = accessMgr.checkAccess( session.getRbacSession(), permission );
-            LOG.info( "Fortress checkAccess objectName: " + permission.getObjectName() + " operationName: " + permission.getOpName() + " userId: " + session.getRbacSession().getUserId() + " result: " + isAuthorized);
+            LOG.info( "Fortress checkAccess objectName: " + permission.getObjName() + " operationName: " + permission.getOpName() + " userId: " + session.getRbacSession().getUserId() + " result: " + isAuthorized);
         }
         catch(us.jts.fortress.SecurityException se)
         {
-            String error = "Fortress SecurityException checkAccess objectName: " + this.perm.getObjectName() + " operationName: " + this.perm.getOpName() + " error=" + se;
+            String error = "Fortress SecurityException checkAccess objectName: " + this.perm.getObjName() + " operationName: " + this.perm.getOpName() + " error=" + se;
             LOG.error( error );
         }
         return isAuthorized;
@@ -90,11 +90,11 @@ public class SecureIndicatingAjaxButton extends IndicatingAjaxButton
         {
             RbacSession session = ( RbacSession )getSession();
             isAuthorized = accessMgr.checkAccess( session.getRbacSession(), perm );
-            LOG.info( "Fortress checkAccess objectName: " + this.perm.getObjectName() + " operationName: " + this.perm.getOpName() + " userId: " + session.getRbacSession().getUserId() + " result: " + isAuthorized);
+            LOG.info( "Fortress checkAccess objectName: " + this.perm.getObjName() + " operationName: " + this.perm.getOpName() + " userId: " + session.getRbacSession().getUserId() + " result: " + isAuthorized);
         }
         catch(us.jts.fortress.SecurityException se)
         {
-            String error = "Fortress SecurityException checkAccess objectName: " + this.perm.getObjectName() + " operationName: " + this.perm.getOpName() + " error=" + se;
+            String error = "Fortress SecurityException checkAccess objectName: " + this.perm.getObjName() + " operationName: " + this.perm.getOpName() + " error=" + se;
             LOG.error( error );
         }
         return isAuthorized;
