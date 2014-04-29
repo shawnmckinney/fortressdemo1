@@ -2,7 +2,7 @@ This is free and unencumbered software released into the public domain.
 ___________________________________________________________________________________
 ###################################################################################
 README for Wicket, Java EE, Spring and Fortress RBAC Security Sample
-Last updated: Nov 5, 2013
+Last updated: April 29, 2014
 ___________________________________________________________________________________
 ###################################################################################
 # Prerequisites

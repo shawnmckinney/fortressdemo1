@@ -19,18 +19,19 @@ import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import us.jts.fortress.AccessMgr;
-import us.jts.fortress.GlobalErrIds;
-import us.jts.fortress.GlobalIds;
-import us.jts.fortress.ReviewMgr;
-import us.jts.fortress.rbac.Permission;
-import us.jts.fortress.rbac.Session;
-import us.jts.fortress.rbac.User;
-import us.jts.fortress.rbac.UserRole;
-import us.jts.fortress.rbac.Warning;
-import us.jts.fortress.util.attr.VUtil;
+import org.openldap.fortress.AccessMgr;
+import org.openldap.fortress.GlobalErrIds;
+import org.openldap.fortress.ReviewMgr;
+import org.openldap.fortress.rbac.Permission;
+import org.openldap.fortress.rbac.Session;
+import org.openldap.fortress.rbac.User;
+import org.openldap.fortress.rbac.UserRole;
+import org.openldap.fortress.rbac.Warning;
+import org.openldap.fortress.util.attr.VUtil;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
 import java.security.Principal;
 import java.util.List;
 
@@ -134,10 +135,6 @@ public abstract class MyBasePage extends WebPage
                 "roleSelection" ), inactiveRoles, new ChoiceRenderer<UserRole>( "name" ) );
             rolesCB.setOutputMarkupId( true );
             add( rolesCB );
-/*
-            add( new SecureIndicatingAjaxButton( this, GlobalUtils.ROLES_ACTIVATE,
-                "us.jts.fortress.rbac.AccessMgrImpl", "addActiveRole" )
-*/
             add( new SecureIndicatingAjaxButton( GlobalUtils.ROLES_ACTIVATE, "ROLE_TEST_BASE" )
             {
                 private static final long serialVersionUID = 1L;
@@ -183,10 +180,6 @@ public abstract class MyBasePage extends WebPage
                 "activeRoleSelection" ), activeRoles, new ChoiceRenderer<UserRole>( "name" ) );
             activeRolesCB.setOutputMarkupId( true );
             add( activeRolesCB );
-/*
-            add( new SecureIndicatingAjaxButton( this, GlobalUtils.ROLES_DEACTIVATE,
-                "us.jts.fortress.rbac.AccessMgrImpl", "dropActiveRole" )
-*/
             add( new SecureIndicatingAjaxButton( GlobalUtils.ROLES_DEACTIVATE, "ROLE_TEST_BASE" )
             {
                 private static final long serialVersionUID = 1L;
@@ -278,7 +271,7 @@ public abstract class MyBasePage extends WebPage
                     activeRoles = session.getRoles();
                     //activeRoles.remove( new UserRole ( "ROLE_TEST_USER" ) );
                 }
-                catch ( us.jts.fortress.SecurityException se )
+                catch ( org.openldap.fortress.SecurityException se )
                 {
                     String error = "SecurityException getting assigned inactiveRoles for user: " + session.getUserId();
                     LOG.error( error );
@@ -335,7 +328,7 @@ public abstract class MyBasePage extends WebPage
             String message = "Activate role name: " + roleName + " successful";
             LOG.info( message );
         }
-        catch ( us.jts.fortress.SecurityException se )
+        catch ( org.openldap.fortress.SecurityException se )
         {
             String msg = "Role selection " + roleName + " activation failed because of ";
             if ( se.getErrorId() == GlobalErrIds.DSD_VALIDATION_FAILED )
@@ -374,7 +367,7 @@ public abstract class MyBasePage extends WebPage
             isSuccessful = true;
             LOG.info( "Fortress dropActiveRole roleName: " + roleName + " was successful" );
         }
-        catch ( us.jts.fortress.SecurityException se )
+        catch ( org.openldap.fortress.SecurityException se )
         {
             String msg = "Role selection " + roleName + " deactivation failed because of ";
             if ( se.getErrorId() == GlobalErrIds.URLE_NOT_ACTIVE )
@@ -392,14 +385,47 @@ public abstract class MyBasePage extends WebPage
     }
 
     /**
-     * Call Fortress createSession and load into the Wicket session object
-     *
+     * Deserialize any object
+     * @param str
+     * @param cls
      * @return
      */
+    public static <T> T deserialize(String str, Class<T> cls)
+    {
+        // deserialize the object
+        try
+        {
+            // This encoding induces a bijection between byte[] and String (unlike UTF-8)
+            byte b[] = str.getBytes("ISO-8859-1");
+            ByteArrayInputStream bi = new ByteArrayInputStream(b);
+            ObjectInputStream si = new ObjectInputStream(bi);
+            return cls.cast(si.readObject());
+        } catch (Exception e) {
+            // TODO: handle properly:
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+        /**
+         * Call Fortress createSession and load into the Wicket session object
+         *
+         * @return
+         */
     private boolean initializeRbacSession()
     {
         HttpServletRequest servletReq = ( HttpServletRequest ) getRequest().getContainerRequest();
         Principal principal = servletReq.getUserPrincipal();
+        if(principal != null)
+        {
+            String szPrincipal = principal.toString();
+            //LOG.info( "context: " + szPrincipal);
+            Session realmSession = deserialize(szPrincipal, Session.class);
+            if(realmSession != null)
+                LOG.info( "realmSession user: " + realmSession.getUserId() );
+
+        }
+
         boolean isLoggedIn = principal != null;
         if ( isLoggedIn )
         {
@@ -426,7 +452,7 @@ public abstract class MyBasePage extends WebPage
                         ( ( RbacSession ) RbacSession.get() ).setSession( session );
                         getPermissions();
                     }
-                    catch ( us.jts.fortress.SecurityException se )
+                    catch ( org.openldap.fortress.SecurityException se )
                     {
                         String error = "caught SecurityException=" + se;
                         LOG.error( error );
@@ -452,7 +478,7 @@ public abstract class MyBasePage extends WebPage
                 ( ( RbacSession ) RbacSession.get() ).setPermissions( permissions );
             }
         }
-        catch ( us.jts.fortress.SecurityException se )
+        catch ( org.openldap.fortress.SecurityException se )
         {
             String error = "getPermissions caught SecurityException=" + se;
             LOG.error( error );

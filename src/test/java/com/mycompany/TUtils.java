@@ -16,9 +16,9 @@ import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import us.jts.fortress.GlobalIds;
-import us.jts.fortress.util.LogUtil;
-import us.jts.fortress.util.attr.VUtil;
+import org.openldap.fortress.GlobalIds;
+import org.openldap.fortress.util.LogUtil;
+import org.openldap.fortress.util.attr.VUtil;
 
 
 /**
@@ -106,7 +106,7 @@ public class TUtils extends TestCase
         try
         {
             int iSleep = len * 1000;
-            us.jts.fortress.util.LogUtil.logIt( TUtils.class.getName() + ".sleep for len=" + iSleep );
+            org.openldap.fortress.util.LogUtil.logIt( TUtils.class.getName() + ".sleep for len=" + iSleep );
             Thread.currentThread().sleep( iSleep );
         }
         catch ( InterruptedException ie )
@@ -125,7 +125,7 @@ public class TUtils extends TestCase
         try
         {
             long iSleep = len * 1000;
-            us.jts.fortress.util.LogUtil.logIt( TUtils.class.getName() + ".sleep for len=" + iSleep );
+            org.openldap.fortress.util.LogUtil.logIt( TUtils.class.getName() + ".sleep for len=" + iSleep );
             Thread.currentThread().sleep( iSleep );
         }
         catch ( InterruptedException ie )

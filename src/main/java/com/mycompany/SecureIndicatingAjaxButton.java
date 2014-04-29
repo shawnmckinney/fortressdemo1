@@ -7,9 +7,9 @@ import com.googlecode.wicket.jquery.ui.form.button.IndicatingAjaxButton;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import us.jts.fortress.*;
-import us.jts.fortress.rbac.Permission;
-import us.jts.fortress.rbac.Session;
+import org.openldap.fortress.*;
+import org.openldap.fortress.rbac.Permission;
+import org.openldap.fortress.rbac.Session;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -46,7 +46,7 @@ public class SecureIndicatingAjaxButton extends IndicatingAjaxButton
                 isAuthorized = accessMgr.checkAccess( session.getRbacSession(), perm );
                 LOG.info( "Fortress checkAccess objectName: " + objectName + " operationName: " + opName + " userId: " + session.getRbacSession().getUserId() + " result: " + isAuthorized);
             }
-            catch(us.jts.fortress.SecurityException se)
+            catch(org.openldap.fortress.SecurityException se)
             {
                 String error = "Fortress SecurityException checkAccess objectName: " + objectName + " operationName: " + opName + " error=" + se;
                 LOG.error( error );
@@ -75,7 +75,7 @@ public class SecureIndicatingAjaxButton extends IndicatingAjaxButton
             isAuthorized = accessMgr.checkAccess( session.getRbacSession(), permission );
             LOG.info( "Fortress checkAccess objectName: " + permission.getObjName() + " operationName: " + permission.getOpName() + " userId: " + session.getRbacSession().getUserId() + " result: " + isAuthorized);
         }
-        catch(us.jts.fortress.SecurityException se)
+        catch(org.openldap.fortress.SecurityException se)
         {
             String error = "Fortress SecurityException checkAccess objectName: " + this.perm.getObjName() + " operationName: " + this.perm.getOpName() + " error=" + se;
             LOG.error( error );
@@ -92,7 +92,7 @@ public class SecureIndicatingAjaxButton extends IndicatingAjaxButton
             isAuthorized = accessMgr.checkAccess( session.getRbacSession(), perm );
             LOG.info( "Fortress checkAccess objectName: " + this.perm.getObjName() + " operationName: " + this.perm.getOpName() + " userId: " + session.getRbacSession().getUserId() + " result: " + isAuthorized);
         }
-        catch(us.jts.fortress.SecurityException se)
+        catch(org.openldap.fortress.SecurityException se)
         {
             String error = "Fortress SecurityException checkAccess objectName: " + this.perm.getObjName() + " operationName: " + this.perm.getOpName() + " error=" + se;
             LOG.error( error );

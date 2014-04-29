@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright (c) 2009-2013. Joshua Tree Software, LLC.  All Rights Reserved.
+  ~ This work is part of OpenLDAP Software <http://www.openldap.org/>.
+  ~
+  ~ Copyright 1998-2014 The OpenLDAP Foundation.
+  ~ All rights reserved.
+  ~
+  ~ Redistribution and use in source and binary forms, with or without
+  ~ modification, are permitted only as authorized by the OpenLDAP
+  ~ Public License.
+  ~
+  ~ A copy of this license is available in the file LICENSE in the
+  ~ top-level directory of the distribution or, alternatively, at
+  ~ <http://www.OpenLDAP.org/license.html>.
   -->
 <project basedir="." default="all" name="Fortress Sample Data">
 
-    <taskdef classname="us.jts.fortress.ant.FortressAntTask" name="FortressAdmin" >
+    <taskdef classname="org.openldap.fortress.ant.FortressAntTask" name="FortressAdmin" >
         <classpath path="${java.class.path}"/>
     </taskdef>
 
@@ -84,14 +95,14 @@
                 <permobj objName="com.mycompany.Page1"/>
                 <permobj objName="com.mycompany.Page2"/>
                 <permobj objName="com.mycompany.Page3"/>
-                <permobj objName="us.jts.fortress.rbac.AccessMgrImpl"/>
+                <permobj objName="org.openldap.fortress.rbac.AccessMgrImpl"/>
             </delpermobj>
 
             <addpermobj>
                 <permobj objName="com.mycompany.Page1" description="Wicket Test Page 1" ou="WicketPerms" type="Page"/>
                 <permobj objName="com.mycompany.Page2" description="Wicket Test Page 2" ou="WicketPerms" type="Page"/>
                 <permobj objName="com.mycompany.Page3" description="Wicket Test Page 3" ou="WicketPerms" type="Page"/>
-                <permobj objName="us.jts.fortress.rbac.AccessMgrImpl" description="Used to perform role activation functions" ou="WicketPerms" type="Page"/>
+                <permobj objName="org.openldap.fortress.rbac.AccessMgrImpl" description="Used to perform role activation functions" ou="WicketPerms" type="Page"/>
                 <permobj objName="ROLE_TEST1" description="Used to perform ROLE_TEST1 role activation functions" ou="WicketPerms" type="Page"/>
                 <permobj objName="ROLE_TEST2" description="Used to perform ROLE_TEST2 role activation functions" ou="WicketPerms" type="Page"/>
                 <permobj objName="ROLE_TEST3" description="Used to perform ROLE_TEST3 role activation functions" ou="WicketPerms" type="Page"/>
@@ -107,8 +118,8 @@
                 <permop objName="com.mycompany.Page3" opName="Button1"/>
                 <permop objName="com.mycompany.Page3" opName="Button2"/>
                 <permop objName="com.mycompany.Page3" opName="Button3"/>
-                <permop objName="us.jts.fortress.rbac.AccessMgrImpl" opName="addActiveRole"/>
-                <permop objName="us.jts.fortress.rbac.AccessMgrImpl" opName="dropActiveRole"/>
+                <permop objName="org.openldap.fortress.rbac.AccessMgrImpl" opName="addActiveRole"/>
+                <permop objName="org.openldap.fortress.rbac.AccessMgrImpl" opName="dropActiveRole"/>
                 <permop objName="ROLE_TEST1" opName="dropActiveRole"/>
                 <permop objName="ROLE_TEST1" opName="dropActiveRole" type="Button"/>
                 <permop objName="ROLE_TEST2" opName="addActiveRole" type="Button"/>
@@ -127,8 +138,8 @@
                 <permop objName="com.mycompany.Page3" opName="Button1" type="Button"/>
                 <permop objName="com.mycompany.Page3" opName="Button2" type="Button"/>
                 <permop objName="com.mycompany.Page3" opName="Button3" type="Button"/>
-                <permop objName="us.jts.fortress.rbac.AccessMgrImpl" opName="addActiveRole" type="Button"/>
-                <permop objName="us.jts.fortress.rbac.AccessMgrImpl" opName="dropActiveRole" type="Button"/>
+                <permop objName="org.openldap.fortress.rbac.AccessMgrImpl" opName="addActiveRole" type="Button"/>
+                <permop objName="org.openldap.fortress.rbac.AccessMgrImpl" opName="dropActiveRole" type="Button"/>
                 <permop objName="ROLE_TEST1" opName="addActiveRole" type="Button"/>
                 <permop objName="ROLE_TEST1" opName="dropActiveRole" type="Button"/>
                 <permop objName="ROLE_TEST2" opName="addActiveRole" type="Button"/>

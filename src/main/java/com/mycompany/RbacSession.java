@@ -6,8 +6,8 @@ package com.mycompany;
 
 import org.apache.wicket.protocol.http.WebSession;
 import org.apache.wicket.request.Request;
-import us.jts.fortress.rbac.Permission;
-import us.jts.fortress.rbac.Session;
+import org.openldap.fortress.rbac.Permission;
+import org.openldap.fortress.rbac.Session;
 
 import java.util.List;
 

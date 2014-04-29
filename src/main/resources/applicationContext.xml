@@ -13,11 +13,11 @@
         http://www.springframework.org/schema/security/spring-security.xsd">
 
     <!-- The Fortress Access Manager bean used for IAM -->
-    <bean id="accessMgr" class="us.jts.fortress.AccessMgrFactory" scope="prototype"
+    <bean id="accessMgr" class="org.openldap.fortress.AccessMgrFactory" scope="prototype"
           factory-method="createInstance">
         <constructor-arg value="HOME"/>
     </bean>
-    <bean id="reviewMgr" class="us.jts.fortress.ReviewMgrFactory" scope="prototype"
+    <bean id="reviewMgr" class="org.openldap.fortress.ReviewMgrFactory" scope="prototype"
           factory-method="createInstance">
         <constructor-arg value="HOME"/>
     </bean>

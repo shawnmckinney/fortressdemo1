@@ -4,10 +4,10 @@
 package com.mycompany;
 
 import org.apache.wicket.Component;
-import us.jts.fortress.cfg.Config;
-import us.jts.fortress.rbac.Permission;
-import us.jts.fortress.rbac.Session;
-import us.jts.fortress.util.attr.VUtil;
+import org.openldap.fortress.cfg.Config;
+import org.openldap.fortress.rbac.Permission;
+import org.openldap.fortress.rbac.Session;
+import org.openldap.fortress.util.attr.VUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
