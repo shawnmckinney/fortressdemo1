@@ -48,8 +48,6 @@ public class Page1 extends MyBasePage
                     info( szBtn1 );
                     if(checkAccess())
                         target.appendJavaScript(";alert('" + szBtn1 + "');");
-
-                    throw new RuntimeException( "Foo Fighters Rule!!!!" );
                 }
 
                 @Override
