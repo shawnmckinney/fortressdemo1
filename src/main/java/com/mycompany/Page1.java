@@ -38,7 +38,7 @@ public class Page1 extends MyBasePage
         {
             super( id );
 
-            add( new Label( "label1", "If you see this page, ROLE_TEST1 is activated within your session" ) );
+            add( new Label( "label1", "If you see this page, ROLE_TEST_SUPER or ROLE_TEST1 is activated within your session" ) );
             final String szBtn1 = GlobalUtils.BTN_PAGE_1 + "." + GlobalUtils.BUTTON1;
             add( new SecureIndicatingAjaxButton( this, szBtn1, PAGE1, GlobalUtils.BUTTON1 )
             {
@@ -48,6 +48,8 @@ public class Page1 extends MyBasePage
                     info( szBtn1 );
                     if(checkAccess())
                         target.appendJavaScript(";alert('" + szBtn1 + "');");
+
+                    throw new RuntimeException( "Foo Fighters Rule!!!!" );
                 }
 
                 @Override

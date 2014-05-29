@@ -37,7 +37,7 @@ public class Page3 extends MyBasePage
         public Page3Form( String id )
         {
             super( id );
-            add( new Label( "label3", "This is Page3.  If you see it, ROLE_TEST1 &/or ROLE_TEST3 is activated within " +
+            add( new Label( "label3", "This is Page3.  If you see it, ROLE_TEST_SUPER or ROLE_TEST3 is activated within " +
                 "your session" ) );
 
             final String szBtn1 = GlobalUtils.BTN_PAGE_3 + "." + GlobalUtils.BUTTON1;

@@ -9,7 +9,6 @@ import org.apache.wicket.Component;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.openldap.fortress.*;
 import org.openldap.fortress.rbac.Permission;
-import org.openldap.fortress.rbac.Session;
 
 import javax.servlet.http.HttpServletRequest;
 

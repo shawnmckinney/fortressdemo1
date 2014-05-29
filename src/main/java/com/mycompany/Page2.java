@@ -37,7 +37,7 @@ public class Page2 extends MyBasePage
         {
             super( id );
 
-            add( new Label( "label2", "This is Page2.  If you see it, ROLE_TEST1 &/or ROLE_TEST2 is activated within " +
+            add( new Label( "label2", "This is Page2.  If you see it, ROLE_TEST_SUPER or ROLE_TEST2 is activated within " +
                 "" + "your session" ) );
             final String szBtn1 = GlobalUtils.BTN_PAGE_2 + "." + GlobalUtils.BUTTON1;
             add( new SecureIndicatingAjaxButton( this, szBtn1, PAGE2, GlobalUtils.BUTTON1 )

@@ -5,17 +5,19 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>fortressdemo1</groupId>
     <artifactId>fortressdemo1</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0-RC37</version>
     <packaging>war</packaging>
 
     <properties>
         <wicket.version>6.14.0</wicket.version>
         <wicket.jquery.version>6.14.0</wicket.jquery.version>
+        <ant.version>1.8.1</ant.version>
         <slf4j.version>1.5.11</slf4j.version>
         <spring.version>3.2.3.RELEASE</spring.version>
         <spring.security.version>3.1.4.RELEASE</spring.security.version>
         <jetty.version>8.1.8.v20121106</jetty.version>
         <skipTests>true</skipTests>
+        <sentry.home>/home/smckinn/GIT/fortressDev/openldap-fortress-realm</sentry.home>
     </properties>
 
     <dependencies>
@@ -23,9 +25,11 @@
         <!--  FORTRESS DEPENDENCIES -->
         <dependency>
             <groupId>org.openldap</groupId>
-            <artifactId>fortress</artifactId>
-            <version>1.0-RC36</version>
+            <artifactId>sentry</artifactId>
+            <version>${version}</version>
         </dependency>
+
+        <!--  WICKET DEPENDENCIES -->
         <dependency>
             <groupId>org.apache.wicket</groupId>
             <artifactId>wicket-spring</artifactId>
@@ -36,14 +40,11 @@
             <artifactId>wicket-jquery-ui</artifactId>
             <version>${wicket.jquery.version}</version>
         </dependency>
-
-        <!--  WICKET DEPENDENCIES -->
         <dependency>
             <groupId>org.apache.wicket</groupId>
             <artifactId>wicket-core</artifactId>
             <version>${wicket.version}</version>
         </dependency>
-        <!-- OPTIONAL DEPENDENCY -->
         <dependency>
             <groupId>org.apache.wicket</groupId>
             <artifactId>wicket-extensions</artifactId>
@@ -67,26 +68,7 @@
             <version>1.4.01</version>
         </dependency>
 
-        <!-- Servlet API and Xerces DEPENDENCIES -->
-        <dependency>
-            <groupId>org.apache.tomcat</groupId>
-            <artifactId>tomcat-servlet-api</artifactId>
-            <version>8.0.0-RC1</version>
-        </dependency>
-
-        <!--  ANT DEPENDENCIES FOR RUNNING ANT PLUG-IN FOR FORTRESS LOAD UTILITY  -->
-        <dependency>
-            <groupId>org.apache.ant</groupId>
-            <artifactId>ant</artifactId>
-            <version>1.8.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.ant</groupId>
-            <artifactId>ant-launcher</artifactId>
-            <version>1.8.1</version>
-        </dependency>
-
-
+        <!-- Spring Security DEPENDENCIES -->
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-core</artifactId>
@@ -103,36 +85,38 @@
             <version>${spring.security.version}</version>
         </dependency>
 
-        <!-- LOGGING DEPENDENCIES - LOG4J -->
+        <!-- Servlet API and Xerces DEPENDENCIES -->
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>1.6.4</version>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-servlet-api</artifactId>
+            <version>8.0.0-RC1</version>
+        </dependency>
+
+        <!--  ANT DEPENDENCIES FOR RUNNING ANT PLUG-IN FOR FORTRESS LOAD UTILITY  -->
+        <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant</artifactId>
+            <version>${ant.version}</version>
         </dependency>
         <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.16</version>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant-launcher</artifactId>
+            <version>${ant.version}</version>
         </dependency>
 
         <!--  ANT DEPENDENCIES FOR maven-ant-run PLUG-IN used in FORTRESS data loads  -->
         <dependency>
             <groupId>org.apache.ant</groupId>
             <artifactId>ant</artifactId>
-            <version>1.8.1</version>
+            <version>${ant.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.ant</groupId>
             <artifactId>ant-launcher</artifactId>
-            <version>1.8.1</version>
+            <version>${ant.version}</version>
         </dependency>
 
-        <!--  JUNIT & Selenium DEPENDENCY FOR TESTING -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.11</version>
-        </dependency>
+        <!--  Selenium DEPENDENCY FOR TESTING -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
@@ -198,6 +182,7 @@
             </testResource>
         </testResources>
         <plugins>
+
             <!-- Deploy the finished war -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -262,6 +247,19 @@
                 <version>2.4</version>
                 <configuration>
                     <warName>${project.artifactId}</warName>
+                    <archive>
+                        <manifest>
+                            <classpathPrefix>lib/</classpathPrefix>
+                        </manifest>
+                    </archive>
+                    <webResources>
+                        <resource>
+                            <!-- this is relative to the pom.xml directory -->
+                            <directory>${project.basedir}/src/main/resources
+                            </directory>
+
+                        </resource>
+                    </webResources>
                 </configuration>
             </plugin>
             <!-- Source archive -->
@@ -323,7 +321,7 @@
                 <version>1.7</version>
                 <executions>
                     <execution>
-                        <phase>install</phase>
+                        <phase>test</phase>
                         <configuration>
                             <target>
                                 <echo message="###############  Run Fortress Ant script to load demo policy  ###############"/>

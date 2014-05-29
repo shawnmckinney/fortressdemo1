@@ -5,7 +5,6 @@ package com.mycompany;
 
 import com.googlecode.wicket.kendo.ui.form.combobox.ComboBox;
 import com.googlecode.wicket.kendo.ui.renderer.ChoiceRenderer;
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -24,13 +23,13 @@ import org.openldap.fortress.GlobalErrIds;
 import org.openldap.fortress.ReviewMgr;
 import org.openldap.fortress.rbac.Permission;
 import org.openldap.fortress.rbac.Session;
-import org.openldap.fortress.rbac.User;
 import org.openldap.fortress.rbac.UserRole;
 import org.openldap.fortress.rbac.Warning;
 import org.openldap.fortress.util.attr.VUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.security.Principal;
 import java.util.List;
@@ -79,21 +78,34 @@ public abstract class MyBasePage extends WebPage
             }
         };
         add( actionLink );
-        infoTA = new TextArea<String>( "infoField", Model.of( infoField ) );
+        infoTA = new TextArea<>( "infoField", Model.of( infoField ) );
         add( infoTA );
         add( new Label( "footer", GlobalUtils.FOOTER ) );
-        if ( !initializeRbacSession() )
+
+        HttpServletRequest servletReq = ( HttpServletRequest ) getRequest().getContainerRequest();
+        // RBAC Security Processing:
+        Principal principal = servletReq.getUserPrincipal();
+        // Is this a Java EE secured page && has the User successfully authenticated already?
+        boolean isSecured = principal != null;
+        if( isSecured && !isLoggedIn( ) )
         {
-            actionLink.setVisible( false );
-        }
-        else
-        {
-            Session session = GlobalUtils.getRbacSession( this );
-            linksLabel = "Authorized Links for " + session.getUserId();
+            String szPrincipal = principal.toString();
+            // Pull the RBAC session from the realm and assert into the Web app's session:
+            initializeRbacSession(szPrincipal);
         }
         myForm = new MyBasePageForm( "commonForm" );
         myForm.setOutputMarkupId( true );
         add( myForm );
+    }
+
+    private boolean isLoggedIn( )
+    {
+        boolean isLoggedIn = false;
+        if ( GlobalUtils.getRbacSession( this ) != null )
+        {
+            isLoggedIn = true;
+        }
+        return isLoggedIn;
     }
 
     private void addSecureLinks()
@@ -135,7 +147,7 @@ public abstract class MyBasePage extends WebPage
                 "roleSelection" ), inactiveRoles, new ChoiceRenderer<UserRole>( "name" ) );
             rolesCB.setOutputMarkupId( true );
             add( rolesCB );
-            add( new SecureIndicatingAjaxButton( GlobalUtils.ROLES_ACTIVATE, "ROLE_TEST_BASE" )
+            add( new SecureIndicatingAjaxButton( GlobalUtils.ROLES_ACTIVATE, "ROLE_TEST_USER" )
             {
                 private static final long serialVersionUID = 1L;
 
@@ -180,7 +192,7 @@ public abstract class MyBasePage extends WebPage
                 "activeRoleSelection" ), activeRoles, new ChoiceRenderer<UserRole>( "name" ) );
             activeRolesCB.setOutputMarkupId( true );
             add( activeRolesCB );
-            add( new SecureIndicatingAjaxButton( GlobalUtils.ROLES_DEACTIVATE, "ROLE_TEST_BASE" )
+            add( new SecureIndicatingAjaxButton( GlobalUtils.ROLES_DEACTIVATE, "ROLE_TEST_USER" )
             {
                 private static final long serialVersionUID = 1L;
 
@@ -385,12 +397,13 @@ public abstract class MyBasePage extends WebPage
     }
 
     /**
-     * Deserialize any object
-     * @param str
-     * @param cls
-     * @return
+     * This utility method can deserialize any object but is used to convert java.security.Principal to Fortress RBAC session object.
+     *
+     * @param str contains String to deserialize
+     * @param cls contains class to use for destination object
+     * @return deserialization target object
      */
-    public static <T> T deserialize(String str, Class<T> cls)
+    private static <T> T deserialize(String str, Class<T> cls)
     {
         // deserialize the object
         try
@@ -400,68 +413,44 @@ public abstract class MyBasePage extends WebPage
             ByteArrayInputStream bi = new ByteArrayInputStream(b);
             ObjectInputStream si = new ObjectInputStream(bi);
             return cls.cast(si.readObject());
-        } catch (Exception e) {
-            // TODO: handle properly:
-            e.printStackTrace();
         }
+        catch (java.io.UnsupportedEncodingException e)
+        {
+            LOG.warn( "deserialize caught UnsupportedEncodingException:" + e);
+        }
+        catch (IOException e)
+        {
+            LOG.warn( "deserialize caught IOException:" + e);
+        }
+        catch (ClassNotFoundException e)
+        {
+            LOG.warn( "deserialize caught ClassNotFoundException:" + e);
+        }
+        // this method failed so return null
         return null;
     }
 
-        /**
-         * Call Fortress createSession and load into the Wicket session object
-         *
-         * @return
-         */
-    private boolean initializeRbacSession()
+    /**
+     * Call Fortress createSession and load into the Wicket session object
+     *
+     * @return
+     */
+    private void initializeRbacSession(String szPrincipal)
     {
-        HttpServletRequest servletReq = ( HttpServletRequest ) getRequest().getContainerRequest();
-        Principal principal = servletReq.getUserPrincipal();
-        if(principal != null)
+        Session realmSession = deserialize(szPrincipal, Session.class);
+        if(realmSession != null)
         {
-            String szPrincipal = principal.toString();
-            //LOG.info( "context: " + szPrincipal);
-            Session realmSession = deserialize(szPrincipal, Session.class);
-            if(realmSession != null)
-                LOG.info( "realmSession user: " + realmSession.getUserId() );
-
-        }
-
-        boolean isLoggedIn = principal != null;
-        if ( isLoggedIn )
-        {
-            // TODO: make sure this is necessary:
             synchronized ( ( RbacSession ) RbacSession.get() )
             {
                 if ( GlobalUtils.getRbacSession( this ) == null )
                 {
-                    try
-                    {
-                        // Create an RBAC session and attach to Wicket session:
-                        User inUser = new User( principal.getName() );
-                        User outUser = reviewMgr.readUser( inUser );
-                        String szRolesToActivate = outUser.getProperty( "fortressdemo1" );
-                        String[] tokens = StringUtils.splitPreserveAllTokens( szRolesToActivate, "," );
-                        inUser.setRole( new UserRole( tokens[0] ) );
-                        inUser.setRole( new UserRole( tokens[1] ) );
-
-                        // This role enables user to activate/inactivate other roles:
-                        //inUser.setRole( new UserRole( "ROLE_TEST_USER" ) );
-                        Session session = accessMgr.createSession( inUser, true );
-                        String message = "RBAC Session successfully created for userId: " + session.getUserId();
-                        LOG.info( message );
-                        ( ( RbacSession ) RbacSession.get() ).setSession( session );
+                    LOG.info( "realmSession user: " + realmSession.getUserId() );
+                        // Retrieve user permissions and attach RBAC session to Wicket session:
+                        ( ( RbacSession ) RbacSession.get() ).setSession( realmSession );
                         getPermissions();
-                    }
-                    catch ( org.openldap.fortress.SecurityException se )
-                    {
-                        String error = "caught SecurityException=" + se;
-                        LOG.error( error );
-                        throw new RuntimeException( error );
-                    }
                 }
             }
         }
-        return isLoggedIn;
     }
 
     /**

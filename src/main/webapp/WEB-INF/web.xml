@@ -67,7 +67,8 @@
         </web-resource-collection>
         <auth-constraint>
             <!-- Anyone with listed role may access this area -->
-            <role-name>ROLE_TEST_BASE</role-name>
+            <role-name>ROLE_TEST_USER</role-name>
+<!--            <role-name>ROLE_TEST_BASE</role-name>-->
         </auth-constraint>
     </security-constraint>
     <login-config>
@@ -79,9 +80,11 @@
         </form-login-config>
     </login-config>
     <!-- Security roles referenced by this web application -->
+<!--
     <security-role>
         <role-name>ROLE_TEST_BASE</role-name>
     </security-role>
+-->
     <security-role>
         <role-name>ROLE_TEST_SUPER</role-name>
     </security-role>
