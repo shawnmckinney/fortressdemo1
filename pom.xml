@@ -7,7 +7,7 @@
     <artifactId>fortressdemo1</artifactId>
     <version>1.0-RC38</version>
     <packaging>war</packaging>
-
+    <description>This sample Web application demonstrates how to integrate with Fortress RBAC policy enforcement APIs.</description>
     <properties>
         <wicket.version>6.16.0</wicket.version>
         <wicket.jquery.version>6.16.0</wicket.jquery.version>
@@ -17,8 +17,32 @@
         <spring.security.version>3.1.4.RELEASE</spring.security.version>
         <jetty.version>8.1.8.v20121106</jetty.version>
         <skipTests>true</skipTests>
-        <sentry.home>/home/smckinn/GIT/fortressDev/openldap-fortress-realm</sentry.home>
     </properties>
+
+    <licenses>
+        <license>
+            <name>Unlicense</name>
+            <url>http://unlicense.org/</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>https://github.com/shawnmckinney/fortressdemo1.git</url>
+    </scm>
+
+    <developers>
+        <developer>
+            <id>smckinney</id>
+            <name>Shawn McKinney</name>
+            <email>smckinney@symas.com</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <organization>symas.com</organization>
+            <timezone>-5</timezone>
+        </developer>
+    </developers>
 
     <dependencies>
 
