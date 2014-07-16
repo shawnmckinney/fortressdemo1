@@ -5,12 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>fortressdemo1</groupId>
     <artifactId>fortressdemo1</artifactId>
-    <version>1.0-RC37</version>
+    <version>1.0-RC38</version>
     <packaging>war</packaging>
 
     <properties>
-        <wicket.version>6.15.0</wicket.version>
-        <wicket.jquery.version>6.15.0</wicket.jquery.version>
+        <wicket.version>6.16.0</wicket.version>
+        <wicket.jquery.version>6.16.0</wicket.jquery.version>
         <ant.version>1.8.1</ant.version>
         <slf4j.version>1.5.11</slf4j.version>
         <spring.version>3.2.3.RELEASE</spring.version>
