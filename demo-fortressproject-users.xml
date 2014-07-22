@@ -164,23 +164,23 @@
             </delpermop>
 
             <addpermop>
-                <permop objName="com.mycompany.Page1" opName="Button1" type="Button"/>
-                <permop objName="com.mycompany.Page1" opName="Button2" type="Button"/>
-                <permop objName="com.mycompany.Page1" opName="Button3" type="Button"/>
-                <permop objName="com.mycompany.Page2" opName="Button1" type="Button"/>
-                <permop objName="com.mycompany.Page2" opName="Button2" type="Button"/>
-                <permop objName="com.mycompany.Page2" opName="Button3" type="Button"/>
-                <permop objName="com.mycompany.Page3" opName="Button1" type="Button"/>
-                <permop objName="com.mycompany.Page3" opName="Button2" type="Button"/>
-                <permop objName="com.mycompany.Page3" opName="Button3" type="Button"/>
-                <permop objName="org.openldap.fortress.rbac.AccessMgrImpl" opName="addActiveRole" type="Button"/>
-                <permop objName="org.openldap.fortress.rbac.AccessMgrImpl" opName="dropActiveRole" type="Button"/>
-                <permop objName="ROLE_TEST1" opName="addActiveRole" type="Button"/>
-                <permop objName="ROLE_TEST1" opName="dropActiveRole" type="Button"/>
-                <permop objName="ROLE_TEST2" opName="addActiveRole" type="Button"/>
-                <permop objName="ROLE_TEST2" opName="dropActiveRole" type="Button"/>
-                <permop objName="ROLE_TEST3" opName="addActiveRole" type="Button"/>
-                <permop objName="ROLE_TEST3" opName="dropActiveRole" type="Button"/>
+                <permop objName="com.mycompany.Page1" opName="Button1" type="Button" description="Permission for Page1.Button1"/>
+                <permop objName="com.mycompany.Page1" opName="Button2" type="Button" description="Permission for Page1.Button2"/>
+                <permop objName="com.mycompany.Page1" opName="Button3" type="Button" description="Permission for Page1.Button3"/>
+                <permop objName="com.mycompany.Page2" opName="Button1" type="Button" description="Permission for Page2.Button1"/>
+                <permop objName="com.mycompany.Page2" opName="Button2" type="Button" description="Permission for Page2.Button2"/>
+                <permop objName="com.mycompany.Page2" opName="Button3" type="Button" description="Permission for Page2.Button3"/>
+                <permop objName="com.mycompany.Page3" opName="Button1" type="Button" description="Permission for Page3.Button1"/>
+                <permop objName="com.mycompany.Page3" opName="Button2" type="Button" description="Permission for Page3.Button2"/>
+                <permop objName="com.mycompany.Page3" opName="Button3" type="Button" description="Permission for Page3.Button3"/>
+                <permop objName="org.openldap.fortress.rbac.AccessMgrImpl" opName="addActiveRole" type="Button" description="Permission for AccessMgrImpl.addActiveRole"/>
+                <permop objName="org.openldap.fortress.rbac.AccessMgrImpl" opName="dropActiveRole" type="Button" description="Permission for AccessMgrImpl.dropActiveRole"/>
+                <permop objName="ROLE_TEST1" opName="addActiveRole" type="Button" description="Permission for ROLE_TEST1.addActiveRole"/>
+                <permop objName="ROLE_TEST1" opName="dropActiveRole" type="Button" description="Permission for ROLE_TEST1.dropActiveRole"/>
+                <permop objName="ROLE_TEST2" opName="addActiveRole" type="Button" description="Permission for ROLE_TEST2.addActiveRole"/>
+                <permop objName="ROLE_TEST2" opName="dropActiveRole" type="Button" description="Permission for ROLE_TEST2.dropActiveRole"/>
+                <permop objName="ROLE_TEST3" opName="addActiveRole" type="Button" description="Permission for ROLE_TEST3.addActiveRole"/>
+                <permop objName="ROLE_TEST3" opName="dropActiveRole" type="Button" description="Permission for ROLE_TEST3.dropActiveRole"/>
             </addpermop>
 
             <delsdset>
