@@ -86,6 +86,9 @@
     </security-role>
 -->
     <security-role>
+        <role-name>ROLE_TEST_USER</role-name>
+    </security-role>
+    <security-role>
         <role-name>ROLE_TEST_SUPER</role-name>
     </security-role>
     <security-role>
