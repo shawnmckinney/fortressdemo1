@@ -39,9 +39,7 @@
                 <userrole userId="user1" name="ROLE_TEST1"/>
                 <userrole userId="user1" name="ROLE_TEST2"/>
                 <userrole userId="user1" name="ROLE_TEST3"/>
-                <userrole userId="user2" name="ROLE_TEST_USER"/>
                 <userrole userId="user2" name="ROLE_TEST2"/>
-                <userrole userId="user3" name="ROLE_TEST_USER"/>
                 <userrole userId="user3" name="ROLE_TEST3"/>
             </deluserrole>
 
@@ -50,9 +48,7 @@
                 <userrole userId="user1" name="ROLE_TEST1" beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
                 <userrole userId="user1" name="ROLE_TEST2" beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
                 <userrole userId="user1" name="ROLE_TEST3" beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
-                <!--<userrole userId="user2" name="ROLE_TEST_USER" beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>-->
                 <userrole userId="user2" name="ROLE_TEST2" beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
-                <!--<userrole userId="user3" name="ROLE_TEST_USER" beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>-->
                 <userrole userId="user3" name="ROLE_TEST3" beginTime="0000" endTime="0000" beginDate="none" endDate="none" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
             </adduserrole>
 

@@ -2,7 +2,7 @@ This is free and unencumbered software released into the public domain.
 ___________________________________________________________________________________
 ###################################################################################
 README for Wicket, Java EE, Spring and Fortress RBAC Security Sample
-Last updated: April 29, 2014
+Last updated: July 24, 2014
 ___________________________________________________________________________________
 ###################################################################################
 # Prerequisites
@@ -45,7 +45,7 @@ ________________________________________________________________________________
 1. Download package: https://github.com/shawnmckinney/fortressdemo1/archive/master.zip
 2. Extract
 3. Set JAVA_HOME
-4. Set M2_Home
+4. Set M2_HOME
 5. Set ANT_HOME
 6. Run this command from the root package:
 $ mvn install
@@ -53,7 +53,7 @@ $ mvn install
 $ mvn tomcat:deploy
 8. Go to this URL:
 http://localhost:8080/fortressdemo1
-9. Use the credentials defined in demo-fortressproject-users.xml (from step installing Fortress step 3):
+9. Use the credentials defined in fortressdemo1-load-policy.xml (from step installing Fortress step 3):
 user1/password
 user2/password
 user3/password
@@ -72,8 +72,8 @@ ________________________________________________________________________________
 ###################################################################################
 Dynamic Separation of Duty constraints restrict one role from set (ROLE_TEST1, ROLE_TEST2, and ROLE_TEST3) that may be activated at a time.
 - user1 is assigned ROLE_TEST1, ROLE_TEST2, ROLE_TEST3 & ROLE_TEST_SUPER
-- user2 is assigned ROLE_TEST2 & ROLE_TEST_USER
-- user3 is assigned ROLE_TEST3 & ROLE_TEST_USER
+- user2 is assigned ROLE_TEST2
+- user3 is assigned ROLE_TEST3
 - user1 default role activation is ROLE_TEST1 & ROLE_TEST_SUPER
 - user1 can view all pages (granted by ROLE_TEST_SUPER) but can only view buttons corresponding with its activated role ( ROLE_TEST1, ROLE_TEST2 or ROLE_TEST3 )
 - user1 can activate one and only one role from set ( ROLE_TEST1, ROLE_TEST2 or ROLE_TEST3 )
